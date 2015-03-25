@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
-from pbmformat import PBMImage
+import sys
+from PySide import QtCore, QtGui
+
+from drawarea import *
 
 """
 TODO:
@@ -8,24 +11,14 @@ TODO:
 	- modelar la red
 	- procesar los pbm para que sirvan de entrada a la RN
 	- crear red neuronal
-	- disenhar interfaz
-	- implementar funcionalidades de la interfaz
-	- convertir entrada manual en pbm
+	- disenhar interfaz ("listo" realmente preferi que la interfaz se limite al area donde se permitira escribir el/los numero(s) )
+	- implementar funcionalidades de la interfaz (listo - excepto las de la RN ya estan todas asociadas a teclas)
+	- convertir entrada manual en pbm (listo!)
 """
 
-def main():
-	print "prueba de archivos pbm!"
-	print "--carga desde archivo--"
-	test = PBMImage()
-	test.loadFromFile("./archivos pbm/J.pbm")
-	test.display()
-	print "----"
-	print "--guardar a archivo--"
-	test.saveToFile("save.pbm")
-	print "----\n FIN"
-
-
-
 if __name__ == '__main__':
-	main()
-	exit()
+	app = QtGui.QApplication(sys.argv)
+	window = MainWindow()
+	window.show()
+	app.exec_()
+	sys.exit()
