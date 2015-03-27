@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+#Nota: con esta ultima version deje de escribir comentarios en los archivos generados (no nos hace falta de todos modos)
+
 from pprint import pprint
 
 class PBMImage(object):
@@ -16,10 +18,7 @@ class PBMImage(object):
 		self.comment = comment
 		self.width = width
 		self.height = height
-		for linea in data:
-			linea = linea.rstrip('\n')
-			linea = map(int, linea.split())
-			self.data += [linea]
+		self.data = data
 
 	def loadFromFile(self, filename):
 		with open(filename) as f:
@@ -30,7 +29,12 @@ class PBMImage(object):
 				comment.append(temp[:-1])
 				temp = f.readline()
 			width, height = temp.split()
-			data = f.readlines()
+			dataMatrix = f.readlines()
+			data = []
+			for linea in dataMatrix:
+				linea = linea.split()
+				linea = map(int, linea)
+				data += [linea]
 		self.load(magic_number, comment, width, height, data)
 		return True
 
@@ -46,8 +50,8 @@ class PBMImage(object):
 	def saveToFile(self, filename):
 		with open(filename, 'w') as f:
 			f.write(self.magic_number+'\n')
-			for c in self.comment:
-				f.write( c +'\n')
+			#for c in self.comment:
+			#	f.write( c +'\n')
 			f.write(str(self.width)+' '+str(self.height)+"\n")
 			for fila in self.data:
 				f.write(" ".join(map(str, fila))+"\n")
