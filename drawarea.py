@@ -4,6 +4,7 @@ Mi version de ScribbleArea
 
 from PySide import QtCore, QtGui
 from pbmformat import PBMImage
+from redneuronal import neuralNet
 import sys
 
 class ScribbleArea(QtGui.QWidget):
@@ -96,6 +97,8 @@ class MainWindow(QtGui.QMainWindow):
 		self.setCentralWidget(self.scribbleArea)
 		self.setWindowTitle("Entrada")
 		self.setFixedSize(100, 100)
+		self.red = neuralNet()
+		self.red.entrenar()
 
 	def closeEvent(self, event):
 		#event.accept()
@@ -109,11 +112,12 @@ class MainWindow(QtGui.QMainWindow):
 			sys.exit()
 		elif e.key() == QtCore.Qt.Key_S:
 			self.scribbleArea.saveImage()
+			self.red.activar("res.pbm")
+
+
+
 
 if __name__ == '__main__':
-
-	import sys
-
 	app = QtGui.QApplication(sys.argv)
 	window = MainWindow()
 	window.show()
