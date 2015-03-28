@@ -15,7 +15,7 @@ def cargarpbm(path):
 	linea = f.read().replace('\n',' ')
 	mat=[]
 	for i in linea:
-		if i<>' ':
+		if i!=' ':
 			mat.append(int(i))
 	return mat
 
@@ -24,13 +24,12 @@ def rn():
 	
 	#	Creacion de la red neuronal
 	print 'creando red neuronal'
-	red_neruronal = buildNetwork(10000,320,10,hiddenclass=TanhLayer)
+	red_neruronal = buildNetwork(10000,320,1,hiddenclass=TanhLayer)
 	print 'Red neuronal creada!'
 
 	#	Creacion del conjunto de datos
 	print "Creando conjunto de datos de entramiento"
-	#ds = ClassificationDataSet(10000,target=10,nb_classes=10,class_labels=['uno','dos','tres','cuarto','cinco','seis','siete','ocho','nueve','diez'])
-	ds = ClassificationDataSet(10000,target=10)
+	ds = ClassificationDataSet(10000,target=1,nb_classes=10,class_labels=['uno','dos','tres','cuarto','cinco','seis','siete','ocho','nueve','diez'])
 	print 'Conjunto de datos creado'
 
 	#	Agrego las muestras y entreno las neuronas
@@ -66,18 +65,29 @@ def rn():
 	ds.addSample(cargarpbm('entrenamiento/9/nueve3.pbm'),(9,))
 	print 'Muestras de entramiento supervisado agregadas'
 
+	"""print ds
 
+	print red_neruronal"""
+
+	for inpt, target in ds:
+		print inpt, target
+	
 	print 'Entrenamiento de red neuronal'
 	entrenamiento = BackpropTrainer(red_neruronal,ds)
-	error = 10
+	"""#entramiento.train()
+	error = 1
 	itera = 0
 	while error > 0.001: 
 	    error = entrenamiento.train()
 	    itera += 1
 	    print "Iteracion: {0} - Error: {1}".format(itera, error)
-	print 'Entrenamiento de red neuronal completado!'
-	#entrenamiento.train()
-	resultado=argmax(red_neruronal.activate(cargarpbm('res.pbm')))
+	print 'Entrenamiento de red neuronal completado!' """
+	return red_neruronal
+
+def activarRed(patch):
+	red_neruronal = rn()
+	resultado=argmax(red_neruronal.activate(cargarpbm(patch)))
 	print "\nResultado ", resultado
 
-rn()
+
+activarRed("res.pbm")
