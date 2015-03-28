@@ -5,6 +5,8 @@ from PySide import QtCore, QtGui
 
 from drawarea import *
 
+#import redneuronal
+
 """
 TODO:
 	- leer/escribir archivos pbm (listo)
