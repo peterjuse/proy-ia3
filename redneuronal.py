@@ -61,7 +61,7 @@ class neuralNet(object):
 		error = 10
 		itera = 0
 		while error > maxErr: 
-		    error = self.entrenamiento.trainUntilConvergence()
+		    error = self.entrenamiento.train()
 		    itera += 1
 		    print "Iteracion: {0} - Error: {1}".format(itera, error)
 		print 'Entrenamiento de red neuronal completado!'
