@@ -55,16 +55,15 @@ class neuralNet(object):
 		self.ds.addSample(self.cargarpbm('entrenamiento/9/nueve3.pbm'),(9,))
 		print 'Muestras de entramiento supervisado agregadas'
 
-	def entrenar(self,maxErr=0.001):
+	def entrenar(self,maxErr=0.1):
 		print 'Entrenamiento de red neuronal'
 		self.entrenamiento = BackpropTrainer(self.red,self.ds)
-		self.entrenamiento.train()
-		"""error = 10
+		error = 10
 		itera = 0
 		while error > maxErr: 
 		    error = self.entrenamiento.trainUntilConvergence()
 		    itera += 1
-		    print "Iteracion: {0} - Error: {1}".format(itera, error)"""
+		    print "Iteracion: {0} - Error: {1}".format(itera, error)
 		print 'Entrenamiento de red neuronal completado!'
 		return self
 
